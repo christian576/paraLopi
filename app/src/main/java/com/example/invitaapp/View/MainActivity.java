@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity implements FragmentListaPeli
 
 
         pegarFragment(new FragmentListaPeliculas());
+
     }
 
     private void pegarFragment(Fragment fragment){
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements FragmentListaPeli
                 .addToBackStack(null)
                 .commit();
     }
+
 
     @Override
     public void recibirPelicula(Pelicula pelicula) {
