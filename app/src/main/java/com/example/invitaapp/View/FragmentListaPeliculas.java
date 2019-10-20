@@ -27,10 +27,10 @@ public class FragmentListaPeliculas extends Fragment implements PeliculaAdapter.
     private ListenerDelFragment listenerDelFragment;
 
 
-    public FragmentListaPeliculas() {
+   /* public FragmentListaPeliculas() {
         // Required empty public constructor
     }
-
+*/
 
 
     @Override
@@ -47,7 +47,7 @@ public class FragmentListaPeliculas extends Fragment implements PeliculaAdapter.
 
         final PeliculaController peliculaController = new PeliculaController();
 
-        peliculaController.traerInvitado(new ResultListener<List<Pelicula>>() {
+   /*     peliculaController.traerInvitado(new ResultListener<List<Pelicula>>() {
             @Override
             public void finish(List<Pelicula> result) {
                 peliculaAdapter1.setPeliculaList(result);
@@ -70,7 +70,14 @@ public class FragmentListaPeliculas extends Fragment implements PeliculaAdapter.
             public void finish(List<Pelicula> result) {
                 peliculaAdapter4.setPeliculaList(result);
             }
-        });
+        });*/
+
+   peliculaController.traerInvitado(new ResultListener<List<Pelicula>>() {
+       @Override
+       public void finish(List<Pelicula> result) {
+           peliculaAdapter1.setPeliculaList(result);
+       }
+   });
 
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);

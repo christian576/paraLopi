@@ -1,13 +1,55 @@
 package com.example.invitaapp.Model;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+
 import com.example.invitaapp.Utils.ResultListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PeliculaDao {
+public class PeliculaDao extends PeliculaRetrofitDAO{
+    private static final String BASE_URL_API = "https://api.themoviedb.org";
+    private static final String BASE_URL_IMG= "https://image.tmdb.org/t/p/w200/";
+    public PeliculaDao() {
+        super(BASE_URL_API);
+    }
 
-    public static void traerPelicula(ResultListener<List<Pelicula>> listenerDelControler) {
+    public void traerPelicula(final ResultListener<List<Pelicula>> listenerDelControler) {
 
-        List<Pelicula> listaDePeliculas = new ArrayList<>();
+       Call<ContainerPeliculas> call =  peliculaService.traerListaDePeliculasTrending();
+
+
+
+
+
+       call.enqueue(new Callback<ContainerPeliculas>() {
+           @Override
+           public void onResponse(Call<ContainerPeliculas> call, Response<ContainerPeliculas> response) {
+               ContainerPeliculas containerPeliculas = response.body();
+               listenerDelControler.finish(containerPeliculas.getPeliculaList());
+               List<Pelicula>laListaDePelicula = containerPeliculas.getPeliculaList();
+             /*  private void pegarImagenPelicula(laListaDePelicula){
+
+                   for (Pelicula unaPelicula:laListaDePelicula) {
+                       String unaUrlImagen = unaPelicula.getUrlImagen();
+
+
+
+
+                   }
+               }*/
+           }
+
+           @Override
+           public void onFailure(Call<ContainerPeliculas> call, Throwable t) {
+
+           }
+       });
+
+        }
+
+       /* List<Pelicula> listaDePeliculas = new ArrayList<>();
 
         listaDePeliculas.add(new Pelicula("Freddy","https://i.pinimg.com/564x/3d/bd/ee/3dbdee192aa8ad8ef1290422d2417454.jpg"));
         listaDePeliculas.add(new Pelicula("Misery","https://media.revistagq.com/photos/5ca5e06d267a32c4ec720e7a/master/w_851,c_limit/las_100_mejores_peliculas_de_terror_de_la_historia_937104698.jpg"));
@@ -21,9 +63,9 @@ public class PeliculaDao {
         listaDePeliculas.add(new Pelicula("El rito", "http://4.bp.blogspot.com/-swujQKeqlWg/TgHh8sw2xUI/AAAAAAAADrY/rEk8zKw_FZo/s1600/El+Rito+2011.jpg"));
         listaDePeliculas.add(new Pelicula("Septimo","http://agenciasanluis.com/wp-content/uploads/2013/09/CINE-ESTRENO.jpg"));
         listaDePeliculas.add(new Pelicula("Invasion a la privacidad", "https://pbs.twimg.com/media/DRBtFaEW0AAsB7d.jpg"));
+*/
+        //listenerDelControler.finish(listaDePeliculas);
 
-        listenerDelControler.finish(listaDePeliculas);
-    }
 
     public static void traerPelicula2(ResultListener<List<Pelicula>> listenerDelControler2) {
 

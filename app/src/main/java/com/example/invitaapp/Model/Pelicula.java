@@ -1,8 +1,15 @@
 package com.example.invitaapp.Model;
 
-public class Pelicula {
+import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+import java.util.List;
+
+public class Pelicula implements Serializable {
+
+    @SerializedName("title")
     private String titulo;
+    @SerializedName("backdrop_path")
     private String urlImagen;
 
 
@@ -21,4 +28,6 @@ public class Pelicula {
     public String getUrlImagen() {
         return urlImagen;
     }
+
+
 }
